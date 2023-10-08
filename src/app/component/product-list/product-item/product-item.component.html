@@ -1,0 +1,21 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-8 row p-0 m-0" style="background: white;">
+            <div class="col-6 p-0 m-0">
+                <img class="produtDetailImage" [src]="data.imageUrl" alt="">
+            </div>
+          
+            <div class="col-6">
+                <div style="margin-top: 60px;">
+                <h3>{{data.name}}</h3>
+                <hr>
+                <h6><b>Category:</b>&nbsp; {{data.category.name}}</h6>
+                <p><b>Description:</b>&nbsp; {{data.description}}<p>
+                <h6><b>Available Stock:</b>&nbsp; {{data.stock}} pcs</h6>
+            </div>
+            </div>
+        </div>
+      
+    </div>
+
+</div>

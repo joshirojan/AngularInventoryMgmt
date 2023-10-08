@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-10">
+        <div class="d-flex flex-direction-row justify-content-between mt-5">
+          <h3>All Issued Products</h3>
+          <button class="btn btn-primary p-1" style="height: 35px;" (click)="addNew()">Add Issue Product</button>
+        </div>
+        <hr>
+        <table class="mt-2 table table-bordered table-striped" id="myTable">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Sn</th>
+              <th scope="col">User</th>
+              <th scope="col">Product</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Created Date</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let issueProduct of issueProducts,let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{ issueProduct.user.fullName }}</td>
+              <td>{{ issueProduct.product.name }}</td>
+              <td>{{ issueProduct.quantity }}</td>
+              <td>{{ issueProduct.createdDate }}</td>
+              <td>
+                <button class="btn btn-warning p-1 me-2" style="height: 35px;" (click)="editIssueProduct(issueProduct)">Edit</button>
+                <button class="btn btn-danger p-1" style="height: 35px;" (click)="onDeleteClick(issueProduct.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+  </div>
+  
+     

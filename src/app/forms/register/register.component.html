@@ -1,0 +1,48 @@
+<div class="row registerRow mt-5">
+    <div class="col-4 registerContainer p-0 m-0">
+        <div class="formHead">
+            <h4 class="p-3 text-white">Register</h4>
+         </div>
+        <form class="p-3" [formGroup]="itemForm">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" class="form-control" formControlName="fullName">
+                <!-- <span class="text-danger" *ngIf="itemForm.get('fullName')?.errors">
+                    {{itemForm.get('fullName')?.errors}}
+                </span> -->
+                <span class="text-danger" *ngIf="itemForm.get('fullName')?.hasError('required')">
+                    Full Name is required.
+                  </span>
+
+                  <span class="text-danger" *ngIf="itemForm.get('fullName')?.hasError('minlength')">
+                    Full Name must be at least 5 characters long.
+                  </span>
+         
+            </div>
+            <div class="form-group mt-3">
+                <label>Email address</label>
+                <input type="email" class="form-control" formControlName="email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <span class="text-danger" *ngIf="itemForm.get('email')?.hasError('required')">
+                    Email is required.
+                  </span>
+
+                  <span class="text-danger" *ngIf="itemForm.get('email')?.hasError('minlength')">
+                    Email must be at least 5 characters long.
+                  </span>
+            </div>
+            <div class="form-group mt-2">
+                <label>Password</label>
+                <input type="password" class="form-control" formControlName="passwordHash">
+                <span class="text-danger" *ngIf="itemForm.get('passwordHash')?.hasError('required')">
+                    Password is required.
+                  </span>
+
+                  <span class="text-danger" *ngIf="itemForm.get('passwordHash')?.hasError('minlength')">
+                    Password must be at least 5 characters long.
+                  </span>
+            </div>
+            <button class="btn btn-primary mt-3" (click)="register(itemForm.value)" [disabled]="!itemForm.valid">Submit</button>
+        </form>
+    </div>
+</div>

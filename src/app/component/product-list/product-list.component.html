@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    <div class="col-10">
+      <div class="d-flex flex-direction-row justify-content-between mt-5">
+        <h3>All Products with Stock</h3>
+        <button class="btn btn-primary p-1" style="height: 35px;" (click)="addNew()">Add New Product</button>
+      </div>
+      <hr>
+      <table class="mt-2 table table-bordered table-striped" id="myTable">
+        <thead>
+          <tr>
+            <th scope="col">Sn</th>
+            <th scope="col" style="width: 10%;">Image</th>
+            <th scope="col" style="width: 15%;">Name</th>
+            <th scope="col" style="width: 30%;">Description</th>
+            <th scope="col">Category</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products,let i = index">
+            <td>{{ i+1 }}</td>
+            <td>
+              <img class="productImage" [src]="product.imageUrl" alt="" srcset="">
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.category.name }}</td>
+            <td>{{ product.stock }}</td>
+            <td>
+              <button class="btn btn-secondary p-1 me-2" style="height: 35px;" (click)="goToItemDetails(product)">Details</button>
+              <button class="btn btn-warning p-1" style="height: 35px;" (click)="editProd(product)">Edit</button>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+   

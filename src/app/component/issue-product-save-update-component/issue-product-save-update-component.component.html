@@ -1,0 +1,38 @@
+<div class="row registerRow">
+    <div class="col-12 registerContainer m-0">
+        <div class="formHead">
+            <h4 class="p-3 text-white">{{ dialogData ? 'Edit' : 'Add' }} Issue Product</h4>
+         </div>
+        <form class="p-3" [formGroup]="itemForm">
+            <div class="form-group mt-2">
+                <label>User</label>
+                <select class="form-select mt-2" formControlName="userId">
+                    <option selected value="0">--Select User--</option>
+                    <option *ngFor="let user of users" [value]="user.id">{{user.fullName}}</option>
+                </select>
+                <span class="text-danger" *ngIf="itemForm.get('userId')?.hasError('min')">
+                    Select User
+                  </span>
+            </div>
+            <div class="form-group mt-2">
+                <label>Product</label>
+                <select class="form-select mt-2" formControlName="productId">
+                    <option selected value="0">--Select Product--</option>
+                    <option *ngFor="let product of products" [value]="product.id">{{product.name}}</option>
+                </select>
+                <span class="text-danger" *ngIf="itemForm.get('productId')?.hasError('min')">
+                    Select Product
+                  </span>
+            </div>
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" class="form-control" formControlName="quantity">
+                  <span class="text-danger" *ngIf="itemForm.get('quantity')?.hasError('min')">
+                    Enter Quantity
+                  </span>
+            </div>
+            <button class="btn btn-primary mt-3" (click)="onSaveOrUpdate()" [disabled]="!itemForm.valid">Submit</button>
+        </form>
+    </div>
+</div>
+

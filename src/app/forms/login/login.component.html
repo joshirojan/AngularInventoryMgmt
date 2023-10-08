@@ -1,0 +1,33 @@
+<div class="row loginRow mt-5">
+    <div class="col-4 loginContainer p-0 m-0">
+        <div class="formHead">
+            <h4 class="p-3 text-white">Login</h4>
+         </div>
+        <form class="p-3" [formGroup]="itemForm">
+            <div class="form-group" >
+                <label>Email address</label>
+                <input type="email" class="form-control" formControlName="email">
+                <span class="text-danger" *ngIf="itemForm.get('email')?.hasError('required')">
+                    Email is required.
+                  </span>
+                  <span class="text-danger" *ngIf="itemForm.get('email')?.hasError('minlength')">
+                    Email must be at least 5 characters long.
+                  </span>
+                  <span class="text-danger" *ngIf="itemForm.get('email')?.hasError('email')">
+                    Incorrect Email Format
+                  </span>
+            </div>
+            <div class="form-group mt-3">
+                <label>Password</label>
+                <input type="password" class="form-control" formControlName="password">
+                <span class="text-danger" *ngIf="itemForm.get('password')?.hasError('required')">
+                    Password is required.
+                  </span>
+                  <span class="text-danger" *ngIf="itemForm.get('password')?.hasError('minlength')">
+                    Password must be at least 5 characters long.
+                  </span>
+            </div>
+            <button class="btn btn-primary mt-3"  (click)="login(itemForm.value)" [disabled]="!itemForm.valid">Submit</button>
+        </form>
+    </div>
+</div>

@@ -1,1 +1,104 @@
-/* You can add global styles to this file, and also import other style files */
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$InventoryMgmt-primary: mat.define-palette(mat.$indigo-palette);
+$InventoryMgmt-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$InventoryMgmt-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$InventoryMgmt-theme: mat.define-light-theme((
+  color: (
+    primary: $InventoryMgmt-primary,
+    accent: $InventoryMgmt-accent,
+    warn: $InventoryMgmt-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($InventoryMgmt-theme);
+
+body{
+    background-color: #e5e1e1!important;
+}
+
+.navbar-brand:hover{
+    color: white!important;
+}
+
+input{
+    border: 1px solid rgb(102, 99, 99)!important;
+}
+
+select{
+  border: 1px solid rgb(102, 99, 99)!important;
+}
+
+.nav-link {
+    font-size: 13px!important;
+    color: white!important;
+    border-bottom: 1px solid white;
+}
+
+.nav-link:hover{
+    color: white!important;
+    border-bottom: 4px solid white;
+}
+
+.navbar{
+    height: 45px;
+}
+
+span{
+    font-size: 12px;
+}
+
+.toast-success {
+    background-color: #28a745 !important;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .toast-error {
+    background-color: #dc3545 !important;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.dataTables_wrapper{
+  background-color: white;
+  padding: 10px;
+}
+
+th{
+background: #2c3e50!important;
+color: white!important;
+
+}
+
+.dataTables_length{
+margin-bottom: 10px;
+}
+.myTable_filter{
+  margin-bottom: 10px;
+}

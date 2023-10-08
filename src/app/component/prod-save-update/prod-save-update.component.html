@@ -1,0 +1,55 @@
+<div class="row registerRow">
+    <div class="col-12 registerContainer m-0">
+        <div class="formHead">
+            <h4 class="p-3 text-white">{{ dialogData ? 'Edit' : 'Add' }} Product</h4>
+         </div>
+        <form class="p-3" [formGroup]="itemForm">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" formControlName="name">
+                <span class="text-danger" *ngIf="itemForm.get('name')?.hasError('required')">
+                    Name is required.
+                  </span>
+
+                  <span class="text-danger" *ngIf="itemForm.get('name')?.hasError('minlength')">
+                    Name must be at least 5 characters long.
+                  </span>
+         
+            </div>
+            <div class="form-group mt-3">
+                <label>Description</label>
+                <input type="email" class="form-control" formControlName="description">
+        
+                <span class="text-danger" *ngIf="itemForm.get('description')?.hasError('required')">
+                    Description is required.
+                  </span>
+
+                  <span class="text-danger" *ngIf="itemForm.get('description')?.hasError('minlength')">
+                    Description must be at least 5 characters long.
+                  </span>
+            </div>
+            <div class="form-group mt-2">
+                <label>Image Url</label>
+                <input type="text" class="form-control" formControlName="imageUrl">
+                <span class="text-danger" *ngIf="itemForm.get('imageUrl')?.hasError('required')">
+                    Image Url is required.
+                  </span>
+                  <span class="text-danger" *ngIf="itemForm.get('imageUrl')?.hasError('minlength')">
+                    Image Url must be at least 5 characters long.
+                  </span>
+            </div>
+            <div class="form-group mt-2">
+                <label>Category</label>
+            <select class="form-select mt-2" formControlName="categoryId">
+                <option selected value="0">--Select Category--</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+              </select>
+              <span class="text-danger" *ngIf="itemForm.get('categoryId')?.hasError('min')">
+                Select Category
+              </span>
+          </div>
+            <button class="btn btn-primary mt-3" (click)="onSaveOrUpdate()" [disabled]="!itemForm.valid">Submit</button>
+        </form>
+    </div>
+</div>
+
