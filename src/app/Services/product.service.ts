@@ -21,11 +21,27 @@ export class ProductService {
   private readonly httpClient = inject(HttpClient);
   productUrl = 'Product';
   categoryUrl = 'Category';
+  searchUrl = 'Product/search';
   private state: WritableSignal<productState> = signal<productState>({
     products: [],
   });
   products = computed(() => this.state().products);
   private readonly toastr = inject(ToastrService);
+
+  searchProducts(keyword: string): void {
+    this.httpClient
+      .get<productModel[]>(
+        `${environment.apiUrl}/${this.searchUrl}?keyword=${keyword}`
+      )
+      .subscribe((response) => {
+        if (response.length === 0) {
+          this.toastr.error('', 'No matching products found');
+          return;
+        }
+        this.state.set({ products: [] });
+        this.state.set({ products: response });
+      });
+  }
 
   fetchProducts(): void {
     this.httpClient
@@ -41,10 +57,15 @@ export class ProductService {
       .subscribe({
         next: (value: productModel) => {
           this.state.mutate((state) => state.products.push(value));
+          console.info(this.products());
           this.toastr.success('', 'Add Product Successful');
         },
         error: (error) => {
-          this.toastr.error(error.error);
+          if (error.status === 403) {
+            this.toastr.error('', 'Access Denied');
+          } else {
+            this.toastr.error(error.error);
+          }
         },
       });
   }

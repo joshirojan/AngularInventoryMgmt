@@ -6,6 +6,8 @@ import { IssueProductSaveUpdateComponent } from '../issue-product-save-update-co
 import Swal from 'sweetalert2';
 import * as $ from 'jquery';
 import 'datatables.net';
+import jwtDecode from 'jwt-decode';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-issue-product-list',
@@ -16,21 +18,48 @@ export class IssueProductListComponent {
   readonly issueProductService = inject(IssueProductService);
   private readonly dialog = inject(MatDialog);
   @Input() issueProducts!: issueProductModel[];
+  token = '';
+  role = '';
+  isAdminToken: boolean = false;
+  itemForm!: FormGroup;
+  keyword: string = '';
+  ngOnInit(): void {
+    this.initItemForm();
+    this.token = localStorage.getItem('jwtToken') ?? '';
+    if (this.token != null) {
+      const decodedToken: any = jwtDecode(this.token);
+      this.role = decodedToken
+        ? decodedToken[
+            'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+          ]
+        : null;
+      this.isAdminToken = this.role === 'Admin';
+    }
+  }
 
+  initItemForm(): void {
+    this.itemForm = new FormGroup({
+      keyword: new FormControl(''),
+    });
+  }
+
+  onSearchClick(): void {
+    this.issueProductService.searchIssueProducts(this.keyword);
+  }
   // ngOnInit(): void {
   //   this.initializeDataTable();
   // }
 
-  private initializeDataTable() {
-    $(() => {
-      setTimeout(() => {
-        $('#myTable').DataTable({
-          pageLength: 5,
-          lengthMenu: [5, 10, 25],
-        });
-      }, 1000);
-    });
-  }
+  // private initializeDataTable() {
+  //   $(() => {
+  //     setTimeout(() => {
+  //       $('#myTable').DataTable({
+  //         pageLength: 5,
+  //         lengthMenu: [5, 10, 25],
+  //       });
+  //     }, 1000);
+  //   });
+  // }
 
   // ngOnDestroy() {
   //   $('#myTable').DataTable().destroy();

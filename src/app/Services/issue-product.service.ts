@@ -21,11 +21,27 @@ export class IssueProductService {
   private readonly httpClient = inject(HttpClient);
   issueProductUrl = 'IssueProduct';
   userUrl = 'User';
+  searchUrl = 'IssueProduct/search';
   private state: WritableSignal<issueProductState> = signal<issueProductState>({
     issueProducts: [],
   });
   issueProducts = computed(() => this.state().issueProducts);
   private readonly toastr = inject(ToastrService);
+
+  searchIssueProducts(keyword: string): void {
+    this.httpClient
+      .get<issueProductModel[]>(
+        `${environment.apiUrl}/${this.searchUrl}?keyword=${keyword}`
+      )
+      .subscribe((response) => {
+        if (response.length === 0) {
+          this.toastr.error('', 'No matching issue products found');
+          return;
+        }
+        this.state.set({ issueProducts: [] });
+        this.state.set({ issueProducts: response });
+      });
+  }
 
   getUsers(): Observable<any[]> {
     return this.httpClient.get<any[]>(`${environment.apiUrl}/${this.userUrl}`);
@@ -35,7 +51,6 @@ export class IssueProductService {
     this.httpClient
       .get<issueProductModel[]>(`${environment.apiUrl}/${this.issueProductUrl}`)
       .subscribe((response) => {
-        console.log(response);
         this.state.set({ issueProducts: response });
       });
   }

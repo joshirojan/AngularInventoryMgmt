@@ -21,11 +21,29 @@ export class StockService {
   private readonly httpClient = inject(HttpClient);
   stockUrl = 'Stock';
   productUrl = 'Product';
+  searchUrl = 'Stock/search'
   private state: WritableSignal<stockState> = signal<stockState>({
     stocks: [],
   });
   stocks = computed(() => this.state().stocks);
   private readonly toastr = inject(ToastrService);
+
+
+  searchStocks(keyword: string): void {
+    this.httpClient
+      .get<stockModel[]>(
+        `${environment.apiUrl}/${this.searchUrl}?keyword=${keyword}`
+      )
+      .subscribe((response) => {
+        if (response.length === 0) {
+          this.toastr.error('', 'No matching stock found');
+          return;
+        }
+        this.state.set({ stocks: [] });
+        this.state.set({ stocks: response });
+      });
+  }
+
 
   getProducts(): Observable<any[]> {
     return this.httpClient.get<any[]>(

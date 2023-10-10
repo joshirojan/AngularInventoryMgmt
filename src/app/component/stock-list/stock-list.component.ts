@@ -6,17 +6,38 @@ import { StockSaveUpdateComponent } from '../stock-save-update/stock-save-update
 import Swal from 'sweetalert2';
 import * as $ from 'jquery';
 import 'datatables.net';
+import jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-stock-list',
   templateUrl: './stock-list.component.html',
   styleUrls: ['./stock-list.component.scss'],
 })
-export class StockListComponent  {
+export class StockListComponent implements OnInit{
   readonly stockService = inject(StockService);
   private readonly dialog = inject(MatDialog);
   @Input() stocks!: stockModel[];
+  token = '';
+  role = '';
+  isAdminToken: boolean = false;
+  keyword: string = '';
+  
+  ngOnInit(): void {
+    this.token = localStorage.getItem('jwtToken') ?? '';
+    if (this.token != null) {
+      const decodedToken: any = jwtDecode(this.token);
+      this.role = decodedToken
+        ? decodedToken[
+            'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+          ]
+        : null;
+      this.isAdminToken = this.role === 'Admin';
+    }
+  }
 
+  onSearchClick(): void {
+    this.stockService.searchStocks(this.keyword);
+  }
   // displayColumns:string[]=["SN","Image","Product","Quantity","Date","Action"];
 
   // ngOnInit(): void {

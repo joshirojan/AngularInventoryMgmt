@@ -6,6 +6,10 @@
           <button class="btn btn-primary p-1" style="height: 35px;" (click)="addNew()">Add Stock</button>
         </div>
         <hr>
+        <div class="d-flex justify-content-end">
+          <input [(ngModel)]="keyword" type="text" class="form-control me-3" style="width: 25%;" placeholder="Search by product name">
+          <button class="btn btn-outline-primary p-1 border-1" style="height: 35px;" (click)="onSearchClick()"  >Search</button>
+        </div>
         <table class="mt-2 table table-bordered table-striped" id="myTable">
           <thead class="thead-dark">
             <tr>
@@ -14,7 +18,7 @@
               <th scope="col">Product</th>
               <th scope="col">Quantity</th>
               <th scope="col">Date</th>
-              <th scope="col">Action</th>
+              <th scope="col" *ngIf="isAdminToken">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -26,7 +30,7 @@
               <td>{{ stock.product.name }}</td>
               <td>{{ stock.quantity }}</td>
               <td>{{ stock.createdDate}}</td>
-              <td>
+              <td *ngIf="isAdminToken">
                 <button class="btn btn-warning p-1 me-2" style="height: 35px;" (click)="editStock(stock)">Edit</button>
                 <button class="btn btn-danger p-1" style="height: 35px;" (click)="onDeleteClick(stock.id)">Delete</button>
               </td>

@@ -3,9 +3,13 @@
     <div class="col-10">
       <div class="d-flex flex-direction-row justify-content-between mt-5">
         <h3>All Products with Stock</h3>
-        <button class="btn btn-primary p-1" style="height: 35px;" (click)="addNew()">Add New Product</button>
+        <button *ngIf="isAdminToken" class="btn btn-primary p-1" style="height: 35px;" (click)="addNew()">Add New Product</button>
       </div>
       <hr>
+<div class="d-flex justify-content-end">
+  <input [(ngModel)]="keyword" type="text" class="form-control me-3" style="width: 25%;" placeholder="Search by product name">
+  <button class="btn btn-outline-primary p-1 border-1" style="height: 35px;" (click)="onSearchClick()"  >Search</button>
+</div>
       <table class="mt-2 table table-bordered table-striped" id="myTable">
         <thead>
           <tr>
@@ -30,8 +34,7 @@
             <td>{{ product.stock }}</td>
             <td>
               <button class="btn btn-secondary p-1 me-2" style="height: 35px;" (click)="goToItemDetails(product)">Details</button>
-              <button class="btn btn-warning p-1" style="height: 35px;" (click)="editProd(product)">Edit</button>
-              
+              <button *ngIf="isAdminToken" class="btn btn-warning p-1" style="height: 35px;" (click)="editProd(product)">Edit</button>
             </td>
           </tr>
         </tbody>
