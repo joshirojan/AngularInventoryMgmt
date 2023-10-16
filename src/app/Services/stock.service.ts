@@ -21,13 +21,12 @@ export class StockService {
   private readonly httpClient = inject(HttpClient);
   stockUrl = 'Stock';
   productUrl = 'Product';
-  searchUrl = 'Stock/search'
+  searchUrl = 'Stock/search';
   private state: WritableSignal<stockState> = signal<stockState>({
     stocks: [],
   });
   stocks = computed(() => this.state().stocks);
   private readonly toastr = inject(ToastrService);
-
 
   searchStocks(keyword: string): void {
     this.httpClient
@@ -43,7 +42,6 @@ export class StockService {
         this.state.set({ stocks: response });
       });
   }
-
 
   getProducts(): Observable<any[]> {
     return this.httpClient.get<any[]>(
@@ -103,9 +101,7 @@ export class StockService {
       .subscribe({
         next: (value: stockModel) => {
           this.state.mutate((state) => {
-            state.stocks = state.stocks.filter(
-              (s) => s.id !== id
-            );
+            state.stocks = state.stocks.filter((s) => s.id !== id);
           });
           this.toastr.success('', 'Delete Stock Successful');
         },

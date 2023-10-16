@@ -7,23 +7,23 @@
             <div class="form-group" >
                 <label>Email address</label>
                 <input type="email" class="form-control" formControlName="email">
-                <span class="text-danger" *ngIf="itemForm.get('email')?.hasError('required')">
+                <span class="text-danger" *ngIf="email.hasError('required') && (email.touched||email.dirty)">
                     Email is required.
                   </span>
-                  <span class="text-danger" *ngIf="itemForm.get('email')?.hasError('minlength')">
+                  <span class="text-danger" *ngIf="email.hasError('minlength') && (email.touched||email.dirty)">
                     Email must be at least 5 characters long.
                   </span>
-                  <span class="text-danger" *ngIf="itemForm.get('email')?.hasError('email')">
+                  <span class="text-danger" *ngIf="email.hasError('pattern') && (email.touched||email.dirty)">
                     Incorrect Email Format
                   </span>
             </div>
             <div class="form-group mt-3">
                 <label>Password</label>
                 <input type="password" class="form-control" formControlName="password">
-                <span class="text-danger" *ngIf="itemForm.get('password')?.hasError('required')">
+                <span class="text-danger" *ngIf="password.hasError('required') && (password.touched||password.dirty)">
                     Password is required.
                   </span>
-                  <span class="text-danger" *ngIf="itemForm.get('password')?.hasError('minlength')">
+                  <span class="text-danger" *ngIf="password.hasError('minlength') && (password.touched||password.dirty)">
                     Password must be at least 5 characters long.
                   </span>
             </div>

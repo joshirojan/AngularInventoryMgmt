@@ -34,8 +34,18 @@ export class IssueProductSaveUpdateComponent implements OnInit {
     this.itemForm = new FormGroup({
       userId: new FormControl(0, [Validators.min(1)]),
       productId: new FormControl(0, [Validators.min(1)]),
-      quantity: new FormControl(0, [Validators.required, Validators.min(1)]),
+      quantity: new FormControl(0, [Validators.min(1),Validators.required]),
     });
+  }
+
+  get userId():FormControl{
+    return this.itemForm.get('userId') as FormControl;
+  }
+  get productId():FormControl{
+    return this.itemForm.get('productId') as FormControl;
+  }
+  get quantity():FormControl{
+    return this.itemForm.get('quantity') as FormControl;
   }
 
   patchItemForm(): void {

@@ -22,15 +22,22 @@ export class LoginComponent implements OnInit {
   initItemForm(): void {
     this.itemForm = new FormGroup({
       email: new FormControl('', [
-        Validators.email,
         Validators.required,
         Validators.minLength(5),
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
       ]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(5),
       ]),
     });
+  }
+
+  get password(): FormControl {
+    return this.itemForm.get('password') as FormControl;
+  }
+  get email(): FormControl {
+    return this.itemForm.get('email') as FormControl;
   }
 
   constructor(

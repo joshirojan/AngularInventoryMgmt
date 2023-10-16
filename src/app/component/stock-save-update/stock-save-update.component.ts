@@ -1,3 +1,4 @@
+import { ReturnStatement } from '@angular/compiler';
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -30,8 +31,16 @@ export class StockSaveUpdateComponent {
   initItemForm(): void {
     this.itemForm = new FormGroup({
       productId: new FormControl(0, Validators.min(1)),
-      quantity: new FormControl(0, Validators.min(1)),
+      quantity: new FormControl(0, [Validators.min(1),Validators.required]),
     });
+  }
+  
+  get productId():FormControl{
+    return this.itemForm.get('productId') as FormControl
+  }
+
+  get quantity():FormControl{
+    return this.itemForm.get('quantity') as FormControl
   }
 
   patchItemForm(): void {

@@ -43,6 +43,7 @@ body{
 
 input{
     border: 1px solid rgb(102, 99, 99)!important;
+    font-size: 18px;
 }
 
 select{
@@ -101,4 +102,11 @@ margin-bottom: 10px;
 }
 .myTable_filter{
   margin-bottom: 10px;
+}
+
+label{
+  font-size: 13px;
+}
+small{
+  font-size: 13px;
 }

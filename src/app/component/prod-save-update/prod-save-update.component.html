@@ -7,11 +7,11 @@
             <div class="form-group">
                 <label>Name</label>
                 <input type="text" class="form-control" formControlName="name">
-                <span class="text-danger" *ngIf="itemForm.get('name')?.hasError('required')">
+                <span class="text-danger" *ngIf="name.hasError('required') && (name.touched||name.dirty)">
                     Name is required.
                   </span>
 
-                  <span class="text-danger" *ngIf="itemForm.get('name')?.hasError('minlength')">
+                  <span class="text-danger" *ngIf="name.hasError('minlength') && (name.touched||name.dirty)">
                     Name must be at least 5 characters long.
                   </span>
          
@@ -20,21 +20,21 @@
                 <label>Description</label>
                 <input type="email" class="form-control" formControlName="description">
         
-                <span class="text-danger" *ngIf="itemForm.get('description')?.hasError('required')">
+                <span class="text-danger" *ngIf="description.hasError('required') && (description.touched||description.dirty)">
                     Description is required.
                   </span>
 
-                  <span class="text-danger" *ngIf="itemForm.get('description')?.hasError('minlength')">
+                  <span class="text-danger" *ngIf="description.hasError('minlength') && (description.touched||description.dirty)">
                     Description must be at least 5 characters long.
                   </span>
             </div>
             <div class="form-group mt-2">
                 <label>Image Url</label>
                 <input type="text" class="form-control" formControlName="imageUrl">
-                <span class="text-danger" *ngIf="itemForm.get('imageUrl')?.hasError('required')">
+                <span class="text-danger" *ngIf="imageUrl.hasError('required') && (imageUrl.touched||imageUrl.dirty)">
                     Image Url is required.
                   </span>
-                  <span class="text-danger" *ngIf="itemForm.get('imageUrl')?.hasError('minlength')">
+                  <span class="text-danger" *ngIf="imageUrl.hasError('minlength') && (imageUrl.touched||imageUrl.dirty)">
                     Image Url must be at least 5 characters long.
                   </span>
             </div>
@@ -44,7 +44,7 @@
                 <option selected value="0">--Select Category--</option>
                 <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
               </select>
-              <span class="text-danger" *ngIf="itemForm.get('categoryId')?.hasError('min')">
+              <span class="text-danger" *ngIf="categoryId.hasError('min') && (categoryId.touched||categoryId.dirty)">
                 Select Category
               </span>
           </div>

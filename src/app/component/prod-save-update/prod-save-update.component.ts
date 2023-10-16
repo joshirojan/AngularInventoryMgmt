@@ -39,6 +39,18 @@ export class ProdSaveUpdateComponent {
     });
   }
 
+  get name():FormControl{
+    return this.itemForm.get('name') as FormControl 
+  }
+  get description():FormControl{
+    return this.itemForm.get('description') as FormControl 
+  }
+  get imageUrl():FormControl{
+    return this.itemForm.get('imageUrl') as FormControl 
+  }
+  get categoryId():FormControl{
+    return this.itemForm.get('categoryId') as FormControl 
+  }
   patchItemForm(): void {
     if (this.dialogData) {
       this.itemForm.patchValue({
